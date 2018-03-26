@@ -5,7 +5,8 @@ import pickle
 
 parser = argparse.ArgumentParser(description='Generate a text.')
 parser.add_argument(
-    '--model', dest='mo',
+    '--model',
+    dest='mo',
     required=True,
     help='input a path to the file with model')
 parser.add_argument(
