@@ -8,7 +8,8 @@ Dictionary = dict()
 a = list()
 
 
-def correct_line(line, lowercase):   # разбиваем строку на слова, опционально приводим к нижнему регистру
+# разбиваем строку на слова, опционально приводим к нижнему регистру
+def correct_line(line, lowercase):
     line = re.sub(r'[^A-Za-zА-Яа-я ]', '', line)
     line = re.sub(r'\s+', ' ', line)
     if lowercase:
@@ -18,7 +19,8 @@ def correct_line(line, lowercase):   # разбиваем строку на сл
     return a
 
 
-def create_dict(a, dictionary):  # создаем словарь {слово1 : {слово2 : частота...}...}
+# создаем словарь {слово1 : {слово2 : частота...}...}
+def create_dict(a, dictionary):
     flag = 0
     global ending_word
     for i in range(len(a)):
@@ -44,15 +46,28 @@ def create_dict(a, dictionary):  # создаем словарь {слово1 : 
 
 
 parser = argparse.ArgumentParser(description='Create a model.')
-parser.add_argument('--input-dir', dest='inp', default='stdin', help='input a path to the directory (else stdin)')
-parser.add_argument('--model', dest='mo', required=True, help='input a path to the file with model')
-parser.add_argument('--lc', action='store_true', default=False, help='converts text to lowercase')
+parser.add_argument(
+    '--input-dir',
+    dest='inp',
+    default='stdin',
+    help='input a path to the directory (else stdin)')
+parser.add_argument(
+    '--model',
+    dest='mo',
+    required=True,
+    help='input a path to the file with model')
+parser.add_argument(
+    '--lc',
+    action='store_true',
+    default=False,
+    help='converts text to lowercase')
 args = parser.parse_args()
 lowercase = args.lc
 
 if args.inp != 'stdin':
     path = args.inp
-    files = glob.glob(pathname=path) # извлекаем все файлы из указанной директории
+    # извлекаем все файлы из указанной директории
+    files = glob.glob(pathname=path)
     for name in files:
         ending_word = ''
         with open(name, encoding='ANSI') as f:
