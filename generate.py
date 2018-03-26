@@ -4,15 +4,31 @@ import glob
 import pickle
 
 parser = argparse.ArgumentParser(description='Generate a text.')
-parser.add_argument('--model', dest='mo', required=True, help='input a path to the file with model')
-parser.add_argument('--length', dest='len', required=True, help='input length')
-parser.add_argument('--seed', dest='seed', default='0', help='input the first word (else random)')
-parser.add_argument('--output', dest='out', default='stdout', help='input a path to the directory (else stdout)')
+parser.add_argument(
+    '--model', dest='mo',
+    required=True,
+    help='input a path to the file with model')
+parser.add_argument(
+    '--length',
+    dest='len',
+    required=True,
+    help='input length')
+parser.add_argument(
+    '--seed',
+    dest='seed',
+    default='0',
+    help='input the first word (else random)')
+parser.add_argument(
+    '--output',
+    dest='out',
+    default='stdout',
+    help='input a path to the directory (else stdout)')
 args = parser.parse_args()
 seed = args.seed
 model = args.mo
 length = int(args.len)
 output = args.out
+
 
 def make_text():    # генерируем свой текст на основе словаря
     list_of_keys = list()
@@ -44,7 +60,8 @@ model = args.mo
 with open(model, 'rb') as k:    # загружаем словарь из указанного файла
     Dictionary = pickle.load(k)
 
-if args.out != 'stdout':    # выводим созданный нами текст в заданный файл(иначе в stdout)
+# выводим созданный нами текст в заданный файл(иначе в stdout)
+if args.out != 'stdout':
     path = args.out
     file = glob.glob(path)
     with open(file) as f:
