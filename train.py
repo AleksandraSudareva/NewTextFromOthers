@@ -4,8 +4,8 @@ import glob
 import sys
 import pickle
 
-Dictionary = dict()
-a = list()
+Dictionary = {}
+a = []
 
 
 # разбиваем строку на слова, опционально приводим к нижнему регистру
