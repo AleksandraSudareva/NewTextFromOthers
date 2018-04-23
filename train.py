@@ -13,10 +13,8 @@ def correct_line(line, lowercase):
     line = re.sub(r'[^A-Za-zА-Яа-я ]', '', line)
     line = re.sub(r'\s+', ' ', line)
     if lowercase:
-        line = line.lower
-    line.strip()
-    a = line.split()
-    return a
+        line = line.lower()
+    return line.strip().split()
 
 
 # создаем словарь {слово1 : {слово2 : частота...}...}
