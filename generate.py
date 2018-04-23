@@ -25,16 +25,18 @@ parser.add_argument(
     default='stdout',
     help='input a path to the directory (else stdout)')
 args = parser.parse_args()
-seed = args.seed
-model = args.mo
-length = int(args.len)
-output = args.out
 
 
 class MakeText:
-    def OpenModel(self):
+    def __init__(self):
+        seed = args.seed
         model = args.mo
-        with open(model, 'rb') as k:    # загружаем словарь из указанного файла
+        length = int(args.len)
+        output = args.out
+        
+        
+    def OpenModel(self):
+        with open(self.model, 'rb') as k:    # загружаем словарь из указанного файла
             dictionary = pickle.load(k)
         return dictionary
 
@@ -44,13 +46,13 @@ class MakeText:
         list_of_keys = []
         for i in dictionary.keys():
             list_of_keys.append(i)
-        if seed != '0':
-            begining_word = args.seed
+        if self.seed != '0':
+            begining_word = self.seed
         else:
             begining_word = random.choice(list_of_keys)
         result = []
         result.append(begining_word)
-        len_of_text = args.len
+        len_of_text = self.length
         for i in range(0, int(len_of_text)):
             sum = 0
             list_of_prob = []
@@ -68,8 +70,8 @@ class MakeText:
 
     def Output(self, dictionary):
         # выводим созданный  нами текст в заданный файл(иначе в stdout)
-        if args.out != 'stdout':
-            path = args.out
+        if self.output != 'stdout':
+            path = self.output
             file = glob.glob(path)
             with open(file) as f:
                 text = self.make_text(dictionary)
