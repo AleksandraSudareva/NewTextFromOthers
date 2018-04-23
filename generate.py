@@ -35,14 +35,14 @@ class MakeText:
     def OpenModel(self):
         model = args.mo
         with open(model, 'rb') as k:    # загружаем словарь из указанного файла
-            Dictionary = pickle.load(k)
-        return Dictionary
+            dictionary = pickle.load(k)
+        return dictionary
 
 
-    def make_text(self, Dictionary):
+    def make_text(self, dictionary):
     # генерируем свой текст на основе словаря
         list_of_keys = []
-        for i in Dictionary.keys():
+        for i in dictionary.keys():
             list_of_keys.append(i)
         if seed != '0':
             begining_word = args.seed
@@ -54,31 +54,31 @@ class MakeText:
         for i in range(0, int(len_of_text)):
             sum = 0
             list_of_prob = []
-            for j in Dictionary[result[i]].values():
+            for j in dictionary[result[i]].values():
                 sum += int(j)
-            for j in Dictionary[result[i]].values():
+            for j in dictionary[result[i]].values():
                 list_of_prob.append(int(j) / sum)
             list_of_values = []
-            for j in Dictionary[result[i]].keys():
+            for j in dictionary[result[i]].keys():
                 list_of_values.append(j)
             new_word = random.choices(list_of_values, weights=list_of_prob, k=1)
             result.append(new_word[0])
         return result
 
 
-    def Output(self, Dictionary):
+    def Output(self, dictionary):
         # выводим созданный  нами текст в заданный файл(иначе в stdout)
         if args.out != 'stdout':
             path = args.out
             file = glob.glob(path)
             with open(file) as f:
-                text = self.make_text(Dictionary)
+                text = self.make_text(dictionary)
                 f.write(text)
         else:
-            text = self.make_text(Dictionary)
+            text = self.make_text(dictionary)
             print(' '.join(text))
 
 
 x = MakeText()
-Dict = x.OpenModel()
-x.Output(Dict)
+_dict = x.OpenModel()
+x.Output(_dict)
