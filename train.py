@@ -4,7 +4,7 @@ import glob
 import sys
 import pickle
 
-Dictionary = {}
+_dictionary = {}
 a = []
 
 
@@ -73,12 +73,12 @@ if args.inp != 'stdin':
         with open(name, encoding='ANSI') as f:
             for line in f:
                 a = correct_line(line, lowercase)
-                Dictionary = create_dict(a, Dictionary)
+                _dictionary = create_dict(a, _dictionary)
 else:
     ending_word = ''
     for line in sys.stdin:
         correct_line(line, lowercase)
-        Dictionary = create_dict(a, Dictionary)
+        _dictionary = create_dict(a, _dictionary)
 model = args.mo
 with open(model, 'wb') as t:    # сохраняем словарь в указанный файл
-    pickle.dump(Dictionary, t)
+    pickle.dump(_dictionary, t)
